@@ -13,7 +13,7 @@ services:
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
         ports:
-            - 3306:3306
+            - 3307:3306
         networks:
             - symfony
     php:
@@ -22,16 +22,16 @@ services:
             args:
                 TIMEZONE: ${TIMEZONE}
         volumes:
-            - symfony_dockerized_app_sync:/var/www/symfony/
+            - ../:/var/www/symfony/
         networks:
             - symfony
     nginx:
         build:
             context: ./nginx
         volumes:
-            - symfony_dockerized_app_sync:/var/www/symfony/
+            - ../:/var/www/symfony/
         ports:
-            - 80:80
+            - 120:80
         networks:
             - symfony
         env_file:
@@ -39,7 +39,7 @@ services:
 
 volumes:
     symfony_dockerized_app_sync:
-        external: true
+
     db_app:
 
 networks:
