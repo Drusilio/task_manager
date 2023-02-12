@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Controller\TaskController\Dto\ResponsiblePersonDto;
 use App\Repository\ResponsiblePersonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -25,6 +26,15 @@ class ResponsiblePerson
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+    }
+
+    public static function createFromDto(ResponsiblePersonDto $responsiblePersonDto): ResponsiblePerson
+    {
+        $responsiblePerson = new self();
+
+        $responsiblePerson->name = $responsiblePersonDto->getName();
+
+        return $responsiblePerson;
     }
 
     public function getId(): ?int

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Controller\TaskController\Dto\AbstractTaskDto;
+use App\Controller\TaskController\Dto\CreateTaskDto;
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -41,6 +43,22 @@ class Task
     {
         $this->comments = new ArrayCollection();
     }
+
+    public static function createFromDto(AbstractTaskDto $taskDto): Task
+    {
+        $task = new self();
+
+        $task->description = $taskDto->getDescription();
+        $task->deadline = $taskDto->getDeadline();
+        $task->status = $taskDto->isStatus();
+        $task->file = $taskDto->getFile();
+        $task->completionDate = $taskDto->getCompletionDate();
+        $task->responsiblePerson = ResponsiblePerson::createFromDto($taskDto->getResponsiblePersonDto());
+
+        return $task;
+    }
+
+
 
     public function getId(): ?int
     {
