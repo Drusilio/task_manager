@@ -29,7 +29,4 @@ class CommentDto
     {
         $this->text = $text;
     }
-
-
-
 }

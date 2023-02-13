@@ -2,13 +2,9 @@
 
 namespace App\Controller\TaskController\Dto;
 
-use App\Entity\Comment;
-use App\Entity\ResponsiblePerson;
 use DateTimeInterface;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 
-class EditTaskDto extends AbstractTaskDto
+class EditTaskDto
 {
     private string $description;
 
@@ -135,6 +131,4 @@ class EditTaskDto extends AbstractTaskDto
     {
         $this->responsiblePersonDto = $responsiblePersonDto;
     }
-
-
 }

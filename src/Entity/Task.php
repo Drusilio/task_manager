@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Controller\TaskController\Dto\AbstractTaskDto;
 use App\Controller\TaskController\Dto\CreateTaskDto;
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: TaskRepository::class)]
 class Task
@@ -17,6 +17,9 @@ class Task
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private Uuid $uuid;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
@@ -39,12 +42,32 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-    public function __construct()
+    /**
+     * @param int|null $id
+     * @param Uuid $uuid
+     * @param string|null $description
+     * @param \DateTimeInterface|null $deadline
+     * @param bool|null $status
+     * @param string|null $file
+     * @param \DateTimeInterface|null $completionDate
+     * @param ResponsiblePerson|null $responsiblePerson
+     * @param Collection $comments
+     */
+    public function __construct(?int $id, ?string $description, ?\DateTimeInterface $deadline, ?bool $status, ?string $file, ?\DateTimeInterface $completionDate, ?ResponsiblePerson $responsiblePerson, Collection $comments)
     {
-        $this->comments = new ArrayCollection();
+        $this->id = $id;
+        $this->uuid = Uuid::v6();
+        $this->description = $description;
+        $this->deadline = $deadline;
+        $this->status = $status;
+        $this->file = $file;
+        $this->completionDate = $completionDate;
+        $this->responsiblePerson = $responsiblePerson;
+        $this->comments = $comments;
     }
 
-    public static function createFromDto(AbstractTaskDto $taskDto): Task
+
+    public static function createFromDto(CreateTaskDto $taskDto): Task
     {
         $task = new self();
 
@@ -58,7 +81,29 @@ class Task
         return $task;
     }
 
+    /**
+     * @return Uuid
+     */
+    public function getUuid(): Uuid
+    {
+        return $this->uuid;
+    }
 
+    /**
+     * @return bool|null
+     */
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param Collection $comments
+     */
+    public function setComments(Collection $comments): void
+    {
+        $this->comments = $comments;
+    }
 
     public function getId(): ?int
     {
@@ -133,7 +178,6 @@ class Task
     public function setResponsiblePerson(?ResponsiblePerson $responsiblePerson): self
     {
         $this->responsiblePerson = $responsiblePerson;
-
         return $this;
     }
 
@@ -151,7 +195,6 @@ class Task
             $this->comments->add($comment);
             $comment->setTask($this);
         }
-
         return $this;
     }
 
@@ -163,7 +206,6 @@ class Task
                 $comment->setTask(null);
             }
         }
-
         return $this;
     }
 }

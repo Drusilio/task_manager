@@ -11,6 +11,6 @@ class DeleteTaskHandler implements DeleteTaskHandlerInterface
 
     }
     public function handle(Task $task){
-        $this->taskRepository->remove($task);
+        $this->taskRepository->remove($task, true);
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Infrastructure\ArgumentResolver;
+namespace App\ArgumentResolver;
 
-use App\Infrastructure\Validator\ValidatorInterface;
+use App\Validator\ValidatorInterface;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;

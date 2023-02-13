@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Infrastructure\ArgumentResolver;
+namespace App\ArgumentResolver;
 
-use App\Infrastructure\Request\RequestDeserializerInterface;
+use App\Request\RequestDeserializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultCommandFactory

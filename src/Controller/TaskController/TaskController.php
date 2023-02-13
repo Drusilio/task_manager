@@ -25,14 +25,14 @@ class TaskController extends AbstractController
         return $createTaskHandler->handle($createTaskDto);
     }
 
-    #[Route('/edit/{id}', methods: [Request::METHOD_POST])]
+    #[Route('/edit/{uuid}', methods: [Request::METHOD_POST])]
     public function editTask(Task $task, #[AttributeArgument] EditTaskDto $dto, EditTaskHandlerInterface $editTaskHandler): ?int
     {
         dump('Внесены изменения в задание');
         return $editTaskHandler->handle($task, $dto);
     }
 
-    #[NoReturn] #[Route('/delete/{id}', methods: [Request::METHOD_DELETE])]
+    #[NoReturn] #[Route('/delete/{uuid}', methods: [Request::METHOD_DELETE])]
     public function deleteTask(Task $task, DeleteTaskHandlerInterface $deleteTaskHandler) {
         $deleteTaskHandler->handle($task);
         dump('Задание удалено');

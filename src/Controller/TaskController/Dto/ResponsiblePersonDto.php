@@ -29,7 +29,4 @@ class ResponsiblePersonDto
     {
         $this->name = $name;
     }
-
-
-
 }

@@ -2,42 +2,38 @@
 
 namespace App\Controller\TaskController\Dto;
 
-use App\Entity\Comment;
-use App\Entity\ResponsiblePerson;
 use DateTimeInterface;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 
-class CreateTaskDto extends AbstractTaskDto
+class CreateTaskDto
 {
-    private string $description;
+    private ?string $description;
 
-    private DateTimeInterface $deadline;
+    private ?\DateTimeInterface $deadline;
 
-    private bool $status;
+    private ?bool $status;
 
-    private string $file;
+    private ?string $file;
 
-    private DateTimeInterface $completionDate;
+    private ?\DateTimeInterface $completionDate;
 
     private ResponsiblePersonDto $responsiblePersonDto;
 
     /**
-     * @param string $description
-     * @param DateTimeInterface $deadline
-     * @param bool $status
-     * @param string $file
-     * @param DateTimeInterface $completionDate
-     * @param ResponsiblePersonDto $responsiblePerson
+     * @param string|null $description
+     * @param DateTimeInterface|null $deadline
+     * @param bool|null $status
+     * @param string|null $file
+     * @param DateTimeInterface|null $completionDate
+     * @param ResponsiblePersonDto $responsiblePersonDto
      */
-    public function __construct(string $description, DateTimeInterface $deadline, bool $status, string $file, DateTimeInterface $completionDate, ResponsiblePersonDto $responsiblePerson)
+    public function __construct(?string $description, ?DateTimeInterface $deadline, ?bool $status, ?string $file, ?DateTimeInterface $completionDate, ResponsiblePersonDto $responsiblePersonDto)
     {
         $this->description = $description;
         $this->deadline = $deadline;
         $this->status = $status;
         $this->file = $file;
         $this->completionDate = $completionDate;
-        $this->responsiblePersonDto = $responsiblePerson;
+        $this->responsiblePersonDto = $responsiblePersonDto;
     }
 
     /**
@@ -135,6 +131,4 @@ class CreateTaskDto extends AbstractTaskDto
     {
         $this->responsiblePersonDto = $responsiblePersonDto;
     }
-
-
 }
