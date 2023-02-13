@@ -32,16 +32,6 @@ class RequestDeserializer implements RequestDeserializerInterface
         } catch (Throwable $exception) {
             throw new HttpException(400, sprintf('Error while deserializing data (%s)', $exception->getMessage()));
         }
-
-//        if ($dto instanceof DtoWithCountryInterface) {
-//            $country = $request->headers->get(DtoWithCountryInterface::HEADER_NAME);
-//            if ($country === null) {
-//                throw new HttpException(400, sprintf('This request expected country header.'));
-//            }
-//
-//            $dto->setCountry(Country::from($country));
-//        }
-
         return $dto;
     }
 }

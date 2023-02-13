@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use App\Controller\TaskController\Dto\CreateTaskDto;
 use App\Repository\TaskRepository;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
@@ -36,34 +35,15 @@ class Task
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $completionDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'comments')]
+    #[ORM\ManyToOne(cascade: ['persist'], inversedBy: 'comments')]
     private ?ResponsiblePerson $responsiblePerson = null;
 
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-    /**
-     * @param int|null $id
-     * @param Uuid $uuid
-     * @param string|null $description
-     * @param \DateTimeInterface|null $deadline
-     * @param bool|null $status
-     * @param string|null $file
-     * @param \DateTimeInterface|null $completionDate
-     * @param ResponsiblePerson|null $responsiblePerson
-     * @param Collection $comments
-     */
-    public function __construct(?int $id, ?string $description, ?\DateTimeInterface $deadline, ?bool $status, ?string $file, ?\DateTimeInterface $completionDate, ?ResponsiblePerson $responsiblePerson, Collection $comments)
+    public function __construct()
     {
-        $this->id = $id;
         $this->uuid = Uuid::v6();
-        $this->description = $description;
-        $this->deadline = $deadline;
-        $this->status = $status;
-        $this->file = $file;
-        $this->completionDate = $completionDate;
-        $this->responsiblePerson = $responsiblePerson;
-        $this->comments = $comments;
     }
 
 

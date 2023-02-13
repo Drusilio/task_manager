@@ -103,7 +103,7 @@ class CreateTaskDto
     /**
      * @return DateTimeInterface
      */
-    public function getCompletionDate(): DateTimeInterface
+    public function getCompletionDate(): ?DateTimeInterface
     {
         return $this->completionDate;
     }
