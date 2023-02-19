@@ -3,6 +3,7 @@
 namespace App\Controller\TaskController\Dto;
 
 use DateTimeInterface;
+use Symfony\Component\Uid\Uuid;
 
 class CreateTaskDto
 {
@@ -16,7 +17,7 @@ class CreateTaskDto
 
     private ?\DateTimeInterface $completionDate;
 
-    private ResponsiblePersonDto $responsiblePersonDto;
+    private ?Uuid $responsiblePersonUuid;
 
     /**
      * @param string|null $description
@@ -24,84 +25,84 @@ class CreateTaskDto
      * @param bool|null $status
      * @param string|null $file
      * @param DateTimeInterface|null $completionDate
-     * @param ResponsiblePersonDto $responsiblePersonDto
+     * @param Uuid $responsiblePersonUuid
      */
-    public function __construct(?string $description, ?DateTimeInterface $deadline, ?bool $status, ?string $file, ?DateTimeInterface $completionDate, ResponsiblePersonDto $responsiblePersonDto)
+    public function __construct(?string $description, ?DateTimeInterface $deadline, ?bool $status, ?string $file, ?DateTimeInterface $completionDate, Uuid $responsiblePersonUuid)
     {
         $this->description = $description;
         $this->deadline = $deadline;
         $this->status = $status;
         $this->file = $file;
         $this->completionDate = $completionDate;
-        $this->responsiblePersonDto = $responsiblePersonDto;
+        $this->responsiblePersonUuid = $responsiblePersonUuid;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param string|null $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(?string $description): void
     {
         $this->description = $description;
     }
 
     /**
-     * @return DateTimeInterface
+     * @return DateTimeInterface|null
      */
-    public function getDeadline(): DateTimeInterface
+    public function getDeadline(): ?DateTimeInterface
     {
         return $this->deadline;
     }
 
     /**
-     * @param DateTimeInterface $deadline
+     * @param DateTimeInterface|null $deadline
      */
-    public function setDeadline(DateTimeInterface $deadline): void
+    public function setDeadline(?DateTimeInterface $deadline): void
     {
         $this->deadline = $deadline;
     }
 
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function isStatus(): bool
+    public function getStatus(): ?bool
     {
         return $this->status;
     }
 
     /**
-     * @param bool $status
+     * @param bool|null $status
      */
-    public function setStatus(bool $status): void
+    public function setStatus(?bool $status): void
     {
         $this->status = $status;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFile(): string
+    public function getFile(): ?string
     {
         return $this->file;
     }
 
     /**
-     * @param string $file
+     * @param string|null $file
      */
-    public function setFile(string $file): void
+    public function setFile(?string $file): void
     {
         $this->file = $file;
     }
 
     /**
-     * @return DateTimeInterface
+     * @return DateTimeInterface|null
      */
     public function getCompletionDate(): ?DateTimeInterface
     {
@@ -109,26 +110,27 @@ class CreateTaskDto
     }
 
     /**
-     * @param DateTimeInterface $completionDate
+     * @param DateTimeInterface|null $completionDate
      */
-    public function setCompletionDate(DateTimeInterface $completionDate): void
+    public function setCompletionDate(?DateTimeInterface $completionDate): void
     {
         $this->completionDate = $completionDate;
     }
 
     /**
-     * @return ResponsiblePersonDto
+     * @return Uuid
      */
-    public function getResponsiblePersonDto(): ResponsiblePersonDto
+    public function getResponsiblePersonUuid(): Uuid
     {
-        return $this->responsiblePersonDto;
+        return $this->responsiblePersonUuid;
     }
 
     /**
-     * @param ResponsiblePersonDto $responsiblePersonDto
+     * @param Uuid $responsiblePersonUuid
      */
-    public function setResponsiblePersonDto(ResponsiblePersonDto $responsiblePersonDto): void
+    public function setResponsiblePersonUuid(Uuid $responsiblePersonUuid): void
     {
-        $this->responsiblePersonDto = $responsiblePersonDto;
+        $this->responsiblePersonUuid = $responsiblePersonUuid;
     }
+
 }

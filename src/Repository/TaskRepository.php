@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @extends ServiceEntityRepository<Task>
@@ -33,6 +34,15 @@ class TaskRepository extends ServiceEntityRepository
     public function remove(Task $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function removeByUuid(Uuid $taskUuid, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($this->findOneBy(['uuid' => $taskUuid]));
 
         if ($flush) {
             $this->getEntityManager()->flush();

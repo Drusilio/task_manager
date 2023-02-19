@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Uid\Uuid;
 
 #[ORM\Entity(repositoryClass: ResponsiblePersonRepository::class)]
 class ResponsiblePerson
@@ -23,10 +24,19 @@ class ResponsiblePerson
     #[ORM\Column(type: Types::TEXT)]
     private ?string $name = null;
 
-    public function __construct()
+    #[ORM\Column(type: 'uuid', unique: true)]
+    private Uuid $uuid;
+
+    /**
+     * @param string|null $name
+     */
+    public function __construct(?string $name)
     {
+        $this->name = $name;
+        $this->uuid = Uuid::v6();
         $this->tasks = new ArrayCollection();
     }
+
 
     public static function createFromDto(ResponsiblePersonDto $responsiblePersonDto): ResponsiblePerson
     {
@@ -83,4 +93,22 @@ class ResponsiblePerson
 
         return $this;
     }
+
+    /**
+     * @return Uuid
+     */
+    public function getUuid(): Uuid
+    {
+        return $this->uuid;
+    }
+
+    /**
+     * @param Uuid $uuid
+     */
+    public function setUuid(Uuid $uuid): void
+    {
+        $this->uuid = $uuid;
+    }
+
+
 }

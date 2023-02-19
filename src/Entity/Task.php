@@ -2,7 +2,7 @@
 
 namespace App\Entity;
 
-use App\Controller\TaskController\Dto\CreateTaskDto;
+use App\Controller\TaskController\Dto\EditTaskDto;
 use App\Repository\TaskRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
@@ -41,26 +41,29 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-    public function __construct()
+    /**
+     * @param string|null $description
+     * @param \DateTimeInterface|null $deadline
+     * @param bool|null $status
+     * @param string|null $file
+     * @param \DateTimeInterface|null $completionDate
+     * @param ResponsiblePerson|null $responsiblePerson
+     */
+    public function __construct(?string $description, ?\DateTimeInterface $deadline, ?bool $status, ?string $file, ?\DateTimeInterface $completionDate, ?ResponsiblePerson $responsiblePerson)
     {
         $this->uuid = Uuid::v6();
+        $this->description = $description;
+        $this->deadline = $deadline;
+        $this->status = $status;
+        $this->file = $file;
+        $this->completionDate = $completionDate;
+        $this->responsiblePerson = $responsiblePerson;
     }
 
 
-    public static function createFromDto(CreateTaskDto $taskDto): Task
-    {
-        $task = new self();
+    public function getFromEditDto(EditTaskDto $dto) {
 
-        $task->description = $taskDto->getDescription();
-        $task->deadline = $taskDto->getDeadline();
-        $task->status = $taskDto->isStatus();
-        $task->file = $taskDto->getFile();
-        $task->completionDate = $taskDto->getCompletionDate();
-        $task->responsiblePerson = ResponsiblePerson::createFromDto($taskDto->getResponsiblePersonDto());
-
-        return $task;
     }
-
     /**
      * @return Uuid
      */

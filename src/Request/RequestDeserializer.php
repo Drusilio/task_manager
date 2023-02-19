@@ -24,7 +24,7 @@ class RequestDeserializer implements RequestDeserializerInterface
         try {
             $dto = match ($request->getMethod()) {
                 Request::METHOD_POST, Request::METHOD_PUT, Request::METHOD_PATCH => $this->serializer->deserialize($request->getContent(), $type, 'json'),
-                Request::METHOD_GET => $this->serializer->denormalize($request->query->all(), $type, 'array', [
+                Request::METHOD_GET, Request::METHOD_DELETE => $this->serializer->denormalize($request->query->all(), $type, 'array', [
                     AbstractObjectNormalizer::DISABLE_TYPE_ENFORCEMENT => true,
                 ]),
                 default => throw new Exception(sprintf('For "%s" method not implemented deserializing', $request->getMethod())),
