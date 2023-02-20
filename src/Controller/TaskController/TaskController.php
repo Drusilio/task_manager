@@ -32,9 +32,8 @@ class TaskController extends AbstractController
     }
 
     #[Route('/delete', methods: [Request::METHOD_DELETE])]
-    public function deleteTask(DeleteTaskDto $dto, DeleteTaskHandlerInterface $deleteTaskHandler)
+    public function deleteTask(#[AttributeArgument]DeleteTaskDto $dto, DeleteTaskHandlerInterface $deleteTaskHandler)
     {
         $deleteTaskHandler->handle($dto);
-        dump('Задание удалено');
     }
 }
