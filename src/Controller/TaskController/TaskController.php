@@ -10,10 +10,8 @@ use App\Controller\TaskController\Dto\EditTaskDto;
 use App\Controller\TaskController\Handler\CreateTask\CreateTaskHandlerInterface;
 use App\Controller\TaskController\Handler\DeleteTask\DeleteTaskHandlerInterface;
 use App\Controller\TaskController\Handler\EditTask\EditTaskHandlerInterface;
-use App\Entity\Task;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/task')]
