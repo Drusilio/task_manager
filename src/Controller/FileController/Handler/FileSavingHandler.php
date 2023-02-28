@@ -13,7 +13,7 @@ class FileSavingHandler implements FileSavingHandlerInterface
     public function handle(FileSavingDto $dto): Uuid
     {
         $file = $this->createFromDto($dto);
-        $this->fileRepository->save($file);
+        $this->fileRepository->save($file, true);
 
         return $file->getUuid();
     }

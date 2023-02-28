@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Task;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Uid\Uuid;
@@ -47,5 +48,20 @@ class TaskRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findByDateDiapason(\DateTimeInterface $dateFrom, \DateTimeInterface $dateTo): array|float|int|string
+    {
+        $dateFrom->setTime('00', '00', '00');
+        $dateTo->setTime('23', '59', '59');;
+
+        $queryBuilder = $this->createQueryBuilder('f')
+            ->select('f.id, f.uuid, f.description, f.deadline, f.status, f.file, f.completionDate')
+            ->andWhere('f.deadline >= :dateFrom')
+            ->andWhere('f.deadline <= :dateTo')
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo);
+
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 }
