@@ -8,5 +8,6 @@
 /var/
 /vendor/
 /.idea/
+public/Files/
 ###< symfony/framework-bundle ###
 /.docker/.env.nginx.local

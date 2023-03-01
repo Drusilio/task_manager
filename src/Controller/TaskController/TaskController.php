@@ -7,13 +7,14 @@ use App\ArgumentResolver\AttributeArgument;
 use App\Controller\TaskController\Dto\CreateTaskDto;
 use App\Controller\TaskController\Dto\DeleteTaskDto;
 use App\Controller\TaskController\Dto\EditTaskDto;
+use App\Controller\TaskController\Dto\GetTaskOnDateDto;
 use App\Controller\TaskController\Handler\CreateTask\CreateTaskHandlerInterface;
 use App\Controller\TaskController\Handler\DeleteTask\DeleteTaskHandlerInterface;
 use App\Controller\TaskController\Handler\EditTask\EditTaskHandlerInterface;
-use App\Entity\Task;
+use App\Controller\TaskController\Handler\GetTaskOnDate\GetTaskOnDateHandler;
+use App\Controller\TaskController\Handler\GetTaskOnDate\GetTaskOnDateHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/task')]
@@ -35,5 +36,11 @@ class TaskController extends AbstractController
     public function deleteTask(#[AttributeArgument]DeleteTaskDto $dto, DeleteTaskHandlerInterface $deleteTaskHandler)
     {
         $deleteTaskHandler->handle($dto);
+    }
+
+    #[Route('/get-task-by-date', methods: [Request::METHOD_GET])]
+    public function getTaskOnDate(#[AttributeArgument] GetTaskOnDateDto $getTaskOnDateDto, GetTaskOnDateHandlerInterface $dateHandler): float|array|int|string
+    {
+        return $dateHandler->handle($getTaskOnDateDto);
     }
 }
