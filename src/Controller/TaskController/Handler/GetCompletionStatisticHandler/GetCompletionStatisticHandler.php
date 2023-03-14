@@ -11,7 +11,7 @@ class GetCompletionStatisticHandler implements GetCompletionStatisticHandlerInte
 
     }
 
-    public function handle(GetCompletionStatisticDto $dto): array|float|int|string
+    public function handle(GetCompletionStatisticDto $dto): array
     {
         $dateFrom = new \DateTime($dto->getDateFrom());
         $dateTo = new \DateTime($dto->getDateTo());
