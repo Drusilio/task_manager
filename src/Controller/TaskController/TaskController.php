@@ -7,10 +7,12 @@ use App\ArgumentResolver\AttributeArgument;
 use App\Controller\TaskController\Dto\CreateTaskDto;
 use App\Controller\TaskController\Dto\DeleteTaskDto;
 use App\Controller\TaskController\Dto\EditTaskDto;
+use App\Controller\TaskController\Dto\GetCompletionStatisticDto;
 use App\Controller\TaskController\Dto\GetTaskOnDateDto;
 use App\Controller\TaskController\Handler\CreateTask\CreateTaskHandlerInterface;
 use App\Controller\TaskController\Handler\DeleteTask\DeleteTaskHandlerInterface;
 use App\Controller\TaskController\Handler\EditTask\EditTaskHandlerInterface;
+use App\Controller\TaskController\Handler\GetCompletionStatisticHandler\GetCompletionStatisticHandlerInterface;
 use App\Controller\TaskController\Handler\GetTaskOnDate\GetTaskOnDateHandler;
 use App\Controller\TaskController\Handler\GetTaskOnDate\GetTaskOnDateHandlerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -42,5 +44,12 @@ class TaskController extends AbstractController
     public function getTaskOnDate(#[AttributeArgument] GetTaskOnDateDto $getTaskOnDateDto, GetTaskOnDateHandlerInterface $dateHandler): float|array|int|string
     {
         return $dateHandler->handle($getTaskOnDateDto);
+    }
+
+    #[Route('/get-completion-statistic', methods: [Request::METHOD_GET])]
+    public function getCompletionStatistic(#[AttributeArgument] GetCompletionStatisticDto $completionStatisticDto, GetCompletionStatisticHandlerInterface $statisticHandler): float|array|int|string
+    {
+
+        return $statisticHandler->handle($completionStatisticDto);
     }
 }

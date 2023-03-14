@@ -11,7 +11,7 @@ class CreateTaskDto
 
     private ?\DateTimeInterface $deadline;
 
-    private ?bool $status;
+    private ?bool $isComplited;
 
     private ?string $file;
 
@@ -19,19 +19,16 @@ class CreateTaskDto
 
     private ?Uuid $responsiblePersonUuid;
 
-    /**
-     * @param string|null $description
-     * @param DateTimeInterface|null $deadline
-     * @param bool|null $status
-     * @param string|null $file
-     * @param DateTimeInterface|null $completionDate
-     * @param Uuid $responsiblePersonUuid
-     */
-    public function __construct(?string $description, ?DateTimeInterface $deadline, ?bool $status, ?string $file, ?DateTimeInterface $completionDate, Uuid $responsiblePersonUuid)
+    public function __construct(?string            $description,
+                                ?DateTimeInterface $deadline,
+                                ?bool              $isComplited,
+                                ?string            $file,
+                                ?DateTimeInterface $completionDate,
+                                Uuid               $responsiblePersonUuid)
     {
         $this->description = $description;
         $this->deadline = $deadline;
-        $this->status = $status;
+        $this->isComplited = $isComplited;
         $this->file = $file;
         $this->completionDate = $completionDate;
         $this->responsiblePersonUuid = $responsiblePersonUuid;
@@ -72,17 +69,17 @@ class CreateTaskDto
     /**
      * @return bool|null
      */
-    public function getStatus(): ?bool
+    public function getIsComplited(): ?bool
     {
-        return $this->status;
+        return $this->isComplited;
     }
 
     /**
-     * @param bool|null $status
+     * @param bool|null $isComplited
      */
-    public function setStatus(?bool $status): void
+    public function setIsComplited(?bool $isComplited): void
     {
-        $this->status = $status;
+        $this->isComplited = $isComplited;
     }
 
     /**

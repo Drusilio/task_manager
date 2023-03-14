@@ -4,7 +4,6 @@ namespace App\Controller\TaskController\Handler\GetTaskOnDate;
 
 use App\Controller\TaskController\Dto\GetTaskOnDateDto;
 use App\Repository\TaskRepository;
-use Doctrine\DBAL\Types\DateType;
 
 class GetTaskOnDateHandler implements GetTaskOnDateHandlerInterface
 {
