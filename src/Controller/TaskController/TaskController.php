@@ -49,7 +49,6 @@ class TaskController extends AbstractController
     #[Route('/get-completion-statistic', methods: [Request::METHOD_GET])]
     public function getCompletionStatistic(#[AttributeArgument] GetCompletionStatisticDto $completionStatisticDto, GetCompletionStatisticHandlerInterface $statisticHandler): float|array|int|string
     {
-
         return $statisticHandler->handle($completionStatisticDto);
     }
 }
