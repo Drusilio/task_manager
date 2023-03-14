@@ -6,5 +6,5 @@ use App\Controller\TaskController\Dto\GetCompletionStatisticDto;
 
 interface GetCompletionStatisticHandlerInterface
 {
-    public function handle(GetCompletionStatisticDto $dto): array|float|int|string;
+    public function handle(GetCompletionStatisticDto $dto): array;
 }

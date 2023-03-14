@@ -41,13 +41,13 @@ class TaskController extends AbstractController
     }
 
     #[Route('/get-task-by-date', methods: [Request::METHOD_GET])]
-    public function getTaskOnDate(#[AttributeArgument] GetTaskOnDateDto $getTaskOnDateDto, GetTaskOnDateHandlerInterface $dateHandler): float|array|int|string
+    public function getTaskOnDate(#[AttributeArgument] GetTaskOnDateDto $getTaskOnDateDto, GetTaskOnDateHandlerInterface $dateHandler): array
     {
         return $dateHandler->handle($getTaskOnDateDto);
     }
 
     #[Route('/get-completion-statistic', methods: [Request::METHOD_GET])]
-    public function getCompletionStatistic(#[AttributeArgument] GetCompletionStatisticDto $completionStatisticDto, GetCompletionStatisticHandlerInterface $statisticHandler): float|array|int|string
+    public function getCompletionStatistic(#[AttributeArgument] GetCompletionStatisticDto $completionStatisticDto, GetCompletionStatisticHandlerInterface $statisticHandler): array
     {
         return $statisticHandler->handle($completionStatisticDto);
     }

@@ -10,7 +10,7 @@ class GetTaskOnDateHandler implements GetTaskOnDateHandlerInterface
     public function __construct(private readonly TaskRepository $taskRepository)
     {
     }
-    public function handle(GetTaskOnDateDto $getTaskOnDateDto): float|array|int|string
+    public function handle(GetTaskOnDateDto $getTaskOnDateDto): array
     {
         $dateFrom = new \DateTime($getTaskOnDateDto->getDateFrom());
         $dateTo = new \DateTime($getTaskOnDateDto->getDateTo());

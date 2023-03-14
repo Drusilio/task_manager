@@ -50,7 +50,7 @@ class TaskRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByDateDiapason(\DateTimeInterface $dateFrom, \DateTimeInterface $dateTo): array|float|int|string
+    public function findByDateDiapason(\DateTimeInterface $dateFrom, \DateTimeInterface $dateTo): array
     {
         $dateFrom->setTime('00', '00', '00');
         $dateTo->setTime('23', '59', '59');;
@@ -65,7 +65,8 @@ class TaskRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getArrayResult();
     }
 
-    public function getCompletionStatistic(\DateTimeInterface $dateFrom, \DateTimeInterface $dateTo){
+    public function getCompletionStatistic(\DateTimeInterface $dateFrom, \DateTimeInterface $dateTo): array
+    {
         $queryBuilder = $this->createQueryBuilder('f')
             ->select('sum(CASE WHEN f.isComplited=true THEN 1 ELSE 0 end) as Complited,
             sum(CASE WHEN f.isComplited=true THEN 0 ELSE 1 end) as Uncomplited')
