@@ -24,7 +24,7 @@ class EditTaskHandler implements EditTaskHandlerInterface
         $task = $this->taskRepository->findBy(['uuid' => $dto->getTaskUuid()]);
         $task[0]->setDescription($dto->getDescription());
         $task[0]->setDeadline($dto->getDeadline());
-        $task[0]->setStatus($dto->getStatus());
+        $task[0]->setIsComplited($dto->getIsCompleted());
         $task[0]->setFile($dto->getFile());
         $task[0]->setCompletionDate($dto->getCompletionDate());
         $task[0]->setResponsiblePerson($person);

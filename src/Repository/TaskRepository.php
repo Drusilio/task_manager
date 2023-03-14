@@ -64,4 +64,15 @@ class TaskRepository extends ServiceEntityRepository
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
+
+    public function getCompletionStatistic(\DateTimeInterface $dateFrom, \DateTimeInterface $dateTo){
+        $queryBuilder = $this->createQueryBuilder('f')
+            ->select('sum(CASE WHEN f.isComplited=true THEN 1 ELSE 0 end) as Complited,
+            sum(CASE WHEN f.isComplited=true THEN 0 ELSE 1 end) as Uncomplited')
+            ->andWhere('f.deadline >= :dateFrom')
+            ->andWhere('f.deadline <= :dateTo')
+            ->setParameter('dateFrom', $dateFrom)
+            ->setParameter('dateTo', $dateTo);
+        return $queryBuilder->getQuery()->getArrayResult();
+    }
 }

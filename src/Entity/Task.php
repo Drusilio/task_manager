@@ -27,7 +27,7 @@ class Task
     private ?\DateTimeInterface $deadline = null;
 
     #[ORM\Column]
-    private ?bool $status = null;
+    private ?bool $isComplited = null;
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $file = null;
@@ -41,48 +41,22 @@ class Task
     #[ORM\OneToMany(mappedBy: 'task', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
-    /**
-     * @param string|null $description
-     * @param \DateTimeInterface|null $deadline
-     * @param bool|null $status
-     * @param string|null $file
-     * @param \DateTimeInterface|null $completionDate
-     * @param ResponsiblePerson|null $responsiblePerson
-     */
-    public function __construct(?string $description, ?\DateTimeInterface $deadline, ?bool $status, ?string $file, ?\DateTimeInterface $completionDate, ?ResponsiblePerson $responsiblePerson)
+    public function __construct(?string $description, ?\DateTimeInterface $deadline, ?bool $isComplited, ?string $file, ?\DateTimeInterface $completionDate, ?ResponsiblePerson $responsiblePerson)
     {
         $this->uuid = Uuid::v6();
         $this->description = $description;
         $this->deadline = $deadline;
-        $this->status = $status;
+        $this->isComplited = $isComplited;
         $this->file = $file;
         $this->completionDate = $completionDate;
         $this->responsiblePerson = $responsiblePerson;
     }
 
-
-    public function getFromEditDto(EditTaskDto $dto) {
-
-    }
-    /**
-     * @return Uuid
-     */
     public function getUuid(): Uuid
     {
         return $this->uuid;
     }
 
-    /**
-     * @return bool|null
-     */
-    public function getStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param Collection $comments
-     */
     public function setComments(Collection $comments): void
     {
         $this->comments = $comments;
@@ -113,18 +87,6 @@ class Task
     public function setDeadline(\DateTimeInterface $deadline): self
     {
         $this->deadline = $deadline;
-
-        return $this;
-    }
-
-    public function isStatus(): ?bool
-    {
-        return $this->status;
-    }
-
-    public function setStatus(bool $status): self
-    {
-        $this->status = $status;
 
         return $this;
     }
@@ -164,9 +126,6 @@ class Task
         return $this;
     }
 
-    /**
-     * @return Collection<int, Comment>
-     */
     public function getComments(): Collection
     {
         return $this->comments;
@@ -191,4 +150,22 @@ class Task
         }
         return $this;
     }
+
+    /**
+     * @return bool|null
+     */
+    public function getIsComplited(): ?bool
+    {
+        return $this->isComplited;
+    }
+
+    /**
+     * @param bool|null $isComplited
+     */
+    public function setIsComplited(?bool $isComplited): void
+    {
+        $this->isComplited = $isComplited;
+    }
+
+
 }

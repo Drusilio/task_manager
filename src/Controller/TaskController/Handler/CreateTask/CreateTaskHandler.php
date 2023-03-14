@@ -25,7 +25,7 @@ class CreateTaskHandler implements CreateTaskHandlerInterface
         $task = new Task(
             $createTaskDto->getDescription(),
             $createTaskDto->getDeadline(),
-            $createTaskDto->getStatus(),
+            $createTaskDto->getIsComplited(),
             $createTaskDto->getFile(),
             $createTaskDto->getCompletionDate(),
             $person

@@ -8,7 +8,9 @@ use App\Controller\FileController\Handler\FileSavingHandlerInterface;
 use App\Exception\ValidationException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/file')]
@@ -24,8 +26,9 @@ class FileController extends AbstractController
         ) {
             $errors = [];
 
-            if (empty($file) || !$file instanceof UploadedFile) {
+            if (empty($file) || !$file instanceof \Exception) {
                 $errors['file'][] = 'system.error.system_file_upload_error_missing';
+                return new JsonResponse($errors, 400);
             }
         }
         $fileSavingDto = new FileSavingDto();
@@ -33,4 +36,6 @@ class FileController extends AbstractController
 
         return $fileSavingHandler->handle($fileSavingDto);
     }
+
+
 }
